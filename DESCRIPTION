@@ -1,11 +1,19 @@
 Package: miro
 Type: Package
 Title: What the package does (short line)
-Version: 1.0
+Version: 0.1
 Date: 2013-09-28
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Authors@R: person("Matthias 'Bunny'", "Bannert", role = c("aut",
+    "cre"),email="matthias.bannert@gmail.com")
+Description: Description: miro is an R package that helps useRs to store meta
+    information without affecting the original objects (except for a key
+    attribute). Miro stores all meta information in a separate environment. The
+    package uses reference classes to store the actual meta information. The
+    actual data is not part of the meta information. Thus meta information can
+    easily be exported as a bundle and be shared without privacy concerns.
 License: What Licence is it under ?
-Depends: Rcpp (>= 0.10.4)
+Depends:
+    Rcpp (>= 0.10.4)
 LinkingTo: Rcpp
+Collate:
+    'RcppExports.R'

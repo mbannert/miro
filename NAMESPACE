@@ -1,2 +1,0 @@
-useDynLib(miro)
-exportPattern("^[[:alpha:]]+")
