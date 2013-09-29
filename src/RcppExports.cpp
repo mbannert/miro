@@ -5,14 +5,16 @@
 
 using namespace Rcpp;
 
-// rcpp_hello_world
-List rcpp_hello_world();
-RcppExport SEXP miro_rcpp_hello_world() {
+// add_key_to_listed_obj
+RObject add_key_to_listed_obj(List x, CharacterVector y);
+RcppExport SEXP miro_add_key_to_listed_obj(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
         Rcpp::RNGScope __rngScope;
-        List __result = rcpp_hello_world();
+        Rcpp::traits::input_parameter< List >::type x(xSEXP );
+        Rcpp::traits::input_parameter< CharacterVector >::type y(ySEXP );
+        RObject __result = add_key_to_listed_obj(x, y);
         PROTECT(__sexp_result = Rcpp::wrap(__result));
     }
     UNPROTECT(1);
