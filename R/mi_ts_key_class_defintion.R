@@ -1,4 +1,4 @@
-mi4tskey <- setRefClass("mi4tskey", fields = list(fullKey = "character",
+mi_ts_key <- setRefClass("mi_ts_key", fields = list(fullKey = "character",
                                                   country = "character",
                                                   provider = "character",
                                                   src = "character",

@@ -1,23 +1,15 @@
-
 #' @export
-mi4ts <- setRefClass("mi4ts",fields = list(ts_key = "mi4tskey",
-                                           ts_data = "data.frame",
+mi_ts <- setRefClass("mi_ts",fields = list(ts_key = "mi_ts_key",
                                            ts_index = "Date",
                                            ts_frequency = "numeric",
-                                           md_generated_on = "character",
-                                           md_generated_by = "character",
-                                           md_legacy_key = "character",
-                                           md_source = "character",
-                                           md_comment = "character",
-                                           md_restrictions = "character",
-                                           md_localized_meta = "metaLocalized"),
+                                           ts_generated_on = "character",
+                                           ts_generated_by = "character",
+                                           ts_legacy_key = "character",
+                                           ts_source = "character",
+                                           ts_comment = "character",
+                                           ts_restrictions = "character",
+                                           ts_localized_meta = "metaLocalized"),
                      methods = list(
-                       #' add comments to this object
-                       #' 
-                       #' test
-                       #' 
-                       #' @method
-                          #' @author Matthias Bannert
                           addComment = function(cmnt){
                             md_comment <<- cmnt
                           },
