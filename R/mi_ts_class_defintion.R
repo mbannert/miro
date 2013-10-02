@@ -1,9 +1,9 @@
 #' @export
-mi_ts <- setRefClass("mi_ts",fields = list(ts_key = "mi_ts_key",
+mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change this back to "mi_ts_key"
                                            ts_index = "Date",
                                            ts_frequency = "numeric",
-                                           ts_generated_on = "character",
-                                           ts_generated_by = "character",
+                                           ts_edited_on = "POSIXct",
+                                           ts_edited_by = "character",
                                            ts_legacy_key = "character",
                                            ts_source = "character",
                                            ts_comment = "character",
@@ -13,19 +13,19 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_key = "mi_ts_key",
                           addComment = function(cmnt){
                             ts_comment <<- cmnt
                           },
-                          addKey = function(cntry,prov,src,level,
-                                            slevel,var,itm){
-                            'adds a mi4ts time series key.'
-                            ts_key$country <<- cntry
-                            ts_key$provider <<- prov
-                            ts_key$src <<- src
-                            ts_key$level <<- level
-                            ts_key$selected_level <<- slevel
-                            ts_key$variable <<- var
-                            ts_key$item <<- itm
-                            ts_key$fullKey <<- paste(cntry,prov,src,level,
-                                                     slevel,var,itm,sep=".")
-                          },
+#                           addKey = function(cntry,prov,src,level,
+#                                             slevel,var,itm){
+#                             'adds a mi4ts time series key.'
+#                             ts_key$country <<- cntry
+#                             ts_key$provider <<- prov
+#                             ts_key$src <<- src
+#                             ts_key$level <<- level
+#                             ts_key$selected_level <<- slevel
+#                             ts_key$variable <<- var
+#                             ts_key$item <<- itm
+#                             ts_key$fullKey <<- paste(cntry,prov,src,level,
+#                                                      slevel,var,itm,sep=".")
+#                           },
                           addLegacy = function(key,src){
                             ts_legacy_key <<- key
                             ts_source <<- src
@@ -63,37 +63,22 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_key = "mi_ts_key",
 #                             g + ggplot2::geom_point() + ggplot2::geom_line() +
 #                               ggplot2::ylab(ts_key$fullKey)
 #                           },
-                          populateFromWorkspace = function(tsObj,
+                          start = function(tsObj,
                                                            nm = NA_character_,
                                                            comment = character(),
                                                            restrictions = character()){
-                            if(is.zoo(tsObj) || is.ts(tsObj)){
-                              
-                              if(is.na(nm)){
-                                nm <- deparse(substitute(tsObj)) 
-                              }
-                              # set Key
-                              key <- mi4tskey()
-                              key$setKey(nm)
-                              ts_key <<- key
-                              
-                              ts_frequency <<- frequency(tsObj)
-                              
-                              # meta information on users and time
-                              ts_generated_on <<- as.character(Sys.Date())
-                              ts_generated_by <<- Sys.getenv("USER")
-                              
-                              # get source information from key
-                              ts_source <<- ts_key$src
-                              
-                              # comments and restrictiions
-                              ts_comment <<- comment
-                              ts_restrictions <<- restrictions
-                              
-                              
-                            } else {
-                              stop("Input is not of valid class. Only ts and zoo are supported.")
-                            }
+                            k <- attributes(tsObj)$mi_key
+                            ts_mi_key <<- k
+#                             ts_index <<-
+                            ts_frequency <<- frequency(tsObj)
+                            ts_edited_on <<- Sys.time()
+                            ts_edited_by <<- Sys.getenv('USER')
+#                             ts_legacy_key <<- l_key
+#                             ts_source <<- src
+                            ts_comment <<- comment
+                            ts_restrictions <<- restrictions
+#                             ts_localized_meta = "metaLocalized"
+                            
                           }
                           )
 )

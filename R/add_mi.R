@@ -4,6 +4,7 @@ add_mi <- function(x,meta_env_name = "meta"){
   }
   
   meta_obj <- mi_ts()
+  meta_obj$start(x)
   assign(attributes(x)$mi_key,meta_obj,envir=get(meta_env_name))
   
 }
