@@ -1,6 +1,5 @@
 #' @export
 mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change this back to "mi_ts_key"
-                                           ts_index = "Date",
                                            ts_frequency = "numeric",
                                            ts_edited_on = "POSIXct",
                                            ts_edited_by = "character",
@@ -66,7 +65,6 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
 #                           },
                           show = function(){
                             methods::show(ts_mi_key)
-                            methods::show(ts_index)
                             methods::show(ts_frequency)
                             methods::show(ts_edited_by)
                             methods::show(ts_edited_on)
@@ -82,7 +80,6 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
                                            restrictions = character()){
                             k <- attributes(ts_obj)$mi_key
                             ts_mi_key <<- k
-                            ts_index <<- .zoolike.Date.convert(ts_obj)
                             ts_frequency <<- frequency(ts_obj)
                             ts_edited_on <<- Sys.time()
                             ts_edited_by <<- Sys.getenv('USER')
