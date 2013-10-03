@@ -8,7 +8,8 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
                                            ts_source = "character",
                                            ts_comment = "character",
                                            ts_restrictions = "character",
-                                           ts_localized_meta = "metaLocalized"),
+                                           ts_localized_meta = "character" # change back to  "metaLocalized"
+                                           ),
                      methods = list(
                           addComment = function(cmnt){
                             ts_comment <<- cmnt
@@ -63,18 +64,30 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
 #                             g + ggplot2::geom_point() + ggplot2::geom_line() +
 #                               ggplot2::ylab(ts_key$fullKey)
 #                           },
-                          start = function(tsObj,
-                                                           nm = NA_character_,
-                                                           comment = character(),
-                                                           restrictions = character()){
-                            k <- attributes(tsObj)$mi_key
+                          show = function(){
+                            methods::show(ts_mi_key)
+                            methods::show(ts_index)
+                            methods::show(ts_frequency)
+                            methods::show(ts_edited_by)
+                            methods::show(ts_edited_on)
+                            if(!is.na(ts_legacy_key)) methods::show(ts_legacy_key)
+                            if(!is.na(ts_source)) methods::show(ts_source)
+                            if(!is.na(ts_comment)) methods::show(ts_comment)
+                            if(!is.na(ts_restrictions)) methods::show(ts_restrictions)
+                            methods::show(ts_localized_meta)
+                          },
+                          start = function(ts_obj,nm = NA_character_,l_key = character(),
+                                           src = character(),
+                                           comment = character(),
+                                           restrictions = character()){
+                            k <- attributes(ts_obj)$mi_key
                             ts_mi_key <<- k
-#                             ts_index <<-
-                            ts_frequency <<- frequency(tsObj)
+                            ts_index <<- .zoolike.Date.convert(ts_obj)
+                            ts_frequency <<- frequency(ts_obj)
                             ts_edited_on <<- Sys.time()
                             ts_edited_by <<- Sys.getenv('USER')
-#                             ts_legacy_key <<- l_key
-#                             ts_source <<- src
+                            ts_legacy_key <<- l_key
+                            ts_source <<- src
                             ts_comment <<- comment
                             ts_restrictions <<- restrictions
 #                             ts_localized_meta = "metaLocalized"
