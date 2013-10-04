@@ -13,7 +13,7 @@ Description: Description: miro is an R package that helps useRs to store meta
     easily be exported as a bundle and be shared without privacy concerns.
 License: What Licence is it under ?
 Depends:
-    Rcpp (>= 0.10.4)
+    Rcpp (>= 0.10.4),methods,hash
 LinkingTo: Rcpp
 Collate:
     'RcppExports.R'

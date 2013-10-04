@@ -10,7 +10,7 @@ add_mi <- function(x,meta_env_name = "meta", srcname = NA_character_,
   m_nm <- attributes(x)$mi_key
  
   # run updates if meta object does not exists or overwrite is TRUE
-  if(!exists(m_nm,envir = get(meta_env_name)) || overwrite == T ){
+  if(!exists(m_nm,envir = get(meta_env_name),inherits = F) || overwrite == T ){
     meta_obj <- mi_ts()
     meta_obj$start(x,src = srcname,l_key = legacy_key,
                    comment = cmnt, restrictions = restrict)
