@@ -1,5 +1,10 @@
 #' @export
-mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change this back to "mi_ts_key"
+mi_local <- setClass("mi_local",contains = "environment")
+setMethod("show","mi_local",
+          function(object) cat(ls(envir=object)))
+
+#' @export
+mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", 
                                            ts_frequency = "numeric",
                                            ts_edited_on = "POSIXct",
                                            ts_edited_by = "character",
@@ -7,25 +12,21 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
                                            ts_source = "character",
                                            ts_comment = "character",
                                            ts_restrictions = "character",
-                                           ts_localized_mi = "environment" # change back to  "metaLocalized"
+                                           ts_localized_mi = "mi_local" 
                                            ),
                      methods = list(
-                          addComment = function(cmnt){
+                          add_comment = function(cmnt){
                             ts_comment <<- cmnt
                           },
-#                           addKey = function(cntry,prov,src,level,
-#                                             slevel,var,itm){
-#                             'adds a mi4ts time series key.'
-#                             ts_key$country <<- cntry
-#                             ts_key$provider <<- prov
-#                             ts_key$src <<- src
-#                             ts_key$level <<- level
-#                             ts_key$selected_level <<- slevel
-#                             ts_key$variable <<- var
-#                             ts_key$item <<- itm
-#                             ts_key$fullKey <<- paste(cntry,prov,src,level,
-#                                                      slevel,var,itm,sep=".")
-#                           },
+                          add_legacy_key = function(leg_key){
+                            ts_legacy_key <<-leg_key
+                          },
+                          add_source = function(src){
+                           ts_source <<- src 
+                          },
+                          add_restrictions = function(restr){
+                            ts_restrictions <<- restr
+                          },
                           add_localized_mi = function(language_key,...,
                                                       meta_env_name = "meta",
                                                       overwrite = F
@@ -54,31 +55,41 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
                                            " extended. Identical keys updated.",sep="")
                               out
                             }
-                            
-                            
-                            
-                            
-                            
-                            
                           },
-                          getMeta = function(lang="de"){
-                            ts_localized_meta$labels[[lang]]
-                          },
-#                           ggplot = function(...){
-#                             g <- ggplot2::ggplot(ts_data,ggplot2::aes(Date,value),...)
-#                             g + ggplot2::geom_point() + ggplot2::geom_line() +
-#                               ggplot2::ylab(ts_key$fullKey)
-#                           },
                           show = function(){
+                            cat("Time series key: \n")
                             methods::show(ts_mi_key)
-                            methods::show(ts_frequency)
+                            cat("Suggested key format: Country.provider.source.level.selected_level.variable.item\n \n")
+                            cat("Frequency:")
+                            format(methods::show(ts_frequency))
+                            cat("Last edit by:")
                             methods::show(ts_edited_by)
+                            cat("Last edit on:")
                             methods::show(ts_edited_on)
-                            if(!is.na(ts_legacy_key)) methods::show(ts_legacy_key)
-                            if(!is.na(ts_source)) methods::show(ts_source)
-                            if(!is.na(ts_comment)) methods::show(ts_comment)
-                            if(!is.na(ts_restrictions)) methods::show(ts_restrictions)
-                            methods::show(ts_localized_mi)
+                            if(!is.na(ts_legacy_key)){
+                              cat("Legacy key:")
+                              methods::show(ts_legacy_key)
+                            } 
+                            if(!is.na(ts_source)){
+                              cat("Orgination:")
+                              methods::show(ts_source)
+                            } 
+                            if(!is.na(ts_comment)){
+                              cat("Notes:")
+                              methods::show(ts_comment)
+                            } 
+                            if(!is.na(ts_restrictions)){
+                              cat("Restrictions: ")
+                              methods::show(ts_restrictions)
+                            } 
+                            if(length(ls(envir=ts_localized_mi)) != 0){
+                              cat("Translated meta information available for: \n")
+                              methods::show(ts_localized_mi)
+                              cat("\n")
+                              cat("Use the $ operator to access the respective language, e.g.: ts_localized_mi$en.")
+                            } else {
+                              cat("No localized meta information available.")                              
+                            }
                           },
                           start = function(ts_obj,nm = NA_character_,l_key = character(),
                                            src = character(),
@@ -93,8 +104,6 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character", # change thi
                             ts_source <<- src
                             ts_comment <<- comment
                             ts_restrictions <<- restrictions
-#                             ts_localized_meta = "metaLocalized"
-                            
                           }
                           )
 )

@@ -7,7 +7,7 @@
 #' created
 #' @author person("Matthias 'Bunny'", "Bannert", role = c("aut","cre"),email="matthias.bannert@gmail.com")
 create_env <- function(nm){
-  e <- new.env()
+  e <- new("mi_local")
   assign(nm,e,envir = .GlobalEnv)
   cat("Meta environment",nm,"created.")
 }
