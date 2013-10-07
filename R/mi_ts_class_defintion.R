@@ -91,6 +91,33 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character",
                               cat("No localized meta information available.")                              
                             }
                           },
+                          showAll = function(){
+                            cat("Time series key: \n")
+                            methods::show(ts_mi_key)
+                            cat("Suggested key format: Country.provider.source.level.selected_level.variable.item\n \n")
+                            cat("Frequency:")
+                            format(methods::show(ts_frequency))
+                            cat("Last edit by:")
+                            methods::show(ts_edited_by)
+                            cat("Last edit on:")
+                            methods::show(ts_edited_on)
+                            cat("Legacy key:")
+                            methods::show(ts_legacy_key)
+                            cat("Orgination:")
+                            methods::show(ts_source)
+                            cat("Notes:")
+                            methods::show(ts_comment)
+                            cat("Restrictions: ")
+                            methods::show(ts_restrictions)
+                            if(length(ls(envir=ts_localized_mi)) != 0){
+                              cat("Translated meta information available for: \n")
+                              methods::show(ts_localized_mi)
+                              cat("\n")
+                              cat("Use the $ operator to access the respective language, e.g.: ts_localized_mi$en.")
+                            } else {
+                              cat("No localized meta information available.")
+                            } 
+                          },
                           start = function(ts_obj,nm = NA_character_,l_key = character(),
                                            src = character(),
                                            comment = character(),
