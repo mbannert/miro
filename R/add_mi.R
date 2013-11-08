@@ -14,7 +14,8 @@
 #' @param cmnt character comment
 #' @param restrict character description of restrictions to the data
 #' @param overwrite boolean defaults to FALSE
-#' @author Matthias Bannert 
+#' @author Matthias Bannert
+#' @rdname add_mi_base 
 #' @seealso \code{\link{add_mit}}
 .add_mi <- function(x,meta_env_name = "meta", srcname = NA_character_,
                    legacy_key = NA_character_,cmnt = NA_character_,
@@ -43,7 +44,8 @@ key or set overwrite to TRUE.")
 #' Add meta information to an R object 
 #' 
 #' This function adds a meta information object to the meta environment. If
-#' the meta environment does not exist an environment is created. 
+#' the meta environment does not exist an environment is created. Also the
+#' original data object is linked to the meta information by an 
 #' 
 #' @param x data object
 #' @param key character key, defaults to NA_character_ which leads to using the 

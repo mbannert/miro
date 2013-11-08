@@ -38,4 +38,29 @@ create_env <- function(nm){
   else stop("unable to convert ts time to Date class")
 }
 
+#' Remove Orphaned Meta objects
+#' 
+#' tidy_meta_env deletes meta objects if there is no corresponding data object. 
+#' This function is useful when R Objects are deleted and meta information was
+#' not deleted. 
+#' 
+#' @param meta_env character name of the meta environment, defaults to 'meta'.
+#' @param key character name of the key attribute, defaults to mi_key.
+#' @param data_env environment that holds the data, defaults to .GlobalEnv.
+#' @author Matthias Bannert
+#' @export
+tidy_meta_env <- function(meta_env="meta",key="mi_key",data_env=.GlobalEnv){
+  # get mi keys of object that got one
+  sapply(ls(),function(x) attr(get(x),key))
+  
+  # list all objects in the meta envir
+  m_objs <- ls(envir=get(meta_env))
+  # which objects are available in the meta env?
+  av <- m_objs %in% sapply(ls(envir=data_env),function(x) attr(get(x),key))
+  # delete those which are not available
+  del <- m_objs[!av]
+  rm(list = del,envir=get(meta_env))
+  cat("Meta environment cleaned. \n")
+  
+}
 

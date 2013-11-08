@@ -1,20 +1,27 @@
-
+rm(list=ls())
 ts1 <- ts(rnorm(1:100),start=c(1993,4),frequency=4)
+ts2 <- ts(rnorm(1:100),start=c(1993,4),frequency=4)
+ts3 <- ts(rnorm(1:100),start=c(1993,4),frequency=4)
 
-rm(meta)
+
 
 
 
 add_mi(ts1,srcname="chdlu.db",legacy_key="lalal")
-attributes(ts1)
+add_mi(ts2,srcname="chdlu.db",legacy_key="muooooo")
+add_mi(ts3,srcname="chdlu.db",legacy_key="fasdf")
 
-meta$ts1
+
+meta$ts2
+
+rm(ts2)
 
 
-class(meta)
-meta$ts1
 
-meta$ts1$showAll()
+
+# get all attributes available in the real environment
+
+
 
 debug(meta$moooo$add_localized_mi)
 meta$ts1$add_localized_mi("en",paste(LETTERS,letters,sep="_"),1:26)
