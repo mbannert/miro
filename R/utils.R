@@ -61,6 +61,22 @@ tidy_meta_env <- function(meta_env="meta",key="mi_key",data_env=.GlobalEnv){
   del <- m_objs[!av]
   rm(list = del,envir=get(meta_env))
   cat("Meta environment cleaned. \n")
-  
+  }
+
+
+#' Wrap characters around another character
+#' 
+#' @export
+wrap <- function(x,char="'"){
+  paste(char,x,char,sep="")
 }
+
+#' Wrap opening and closing characters around another character
+#' 
+#' @export
+add_tag <- function(x,open,close){
+  paste(open,x,close,sep="")
+}
+
+
 
