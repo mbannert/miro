@@ -134,3 +134,59 @@ mi_ts <- setRefClass("mi_ts",fields = list(ts_mi_key = "character",
                           }
                           )
 )
+
+#' @export
+result_set <- setRefClass("result_set",
+                          fields = list(keys = "data.frame",
+                                        selection = "numeric"),
+                          methods = list(
+                            add_series = function(mi_keys,vintage_keys = list(),
+                                                  meta_env_name="meta"){
+                              # sanity check of argument
+                              if(!is.character(mi_keys)){
+                                stop("mi_keys must be a vector
+of character representation of the keys you want to add.")
+                              }
+                              # throw an error if there is no
+                              # meta desc
+                              if(!all(mi_keys %in% ls(envir=get(meta_env_name)))){
+                                stop("Not all time series have meta information.")
+                              }
+                              
+                              df <- data.frame(mi_key = mi_keys,stringsAsFactors=F)
+                              # add vintage keys if list is not empty
+                              if(length(vintage_keys) != 0 & all(unlist(vintage_keys) %in% 1:nrow(df))){
+                                df[unlist(vintage_keys),"vintage_key"] <- names(vintage_keys)
+                                keys <<- df
+                              } else {
+                                stop("result set cannot be generated. One of the vintage keys
+                                     is out of bounds.")
+                              }
+                            },
+                            add_selection = function(rows){
+                              if(!is.numeric(rows)){
+                                stop("selection has to be row number in the result_set data.frame")
+                              }
+                              # check whether selection fits 
+                              if(!all(rows %in% 1:nrow(keys))){
+                                stop("selection not in range.")
+                              }
+                              selection <<- rows
+                              
+                            },
+                            # default show method shows only selected values
+                            show = function(){
+                              if(length(selection) == 0){
+                                sel <- 1:nrow(keys)  
+                              } else {
+                                sel <- selection
+                              }
+                              methods::show(keys[sel,])
+                            }
+                            
+                          )
+                          
+)
+
+
+
