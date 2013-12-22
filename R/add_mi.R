@@ -47,7 +47,8 @@ key or set overwrite to TRUE.")
 #' the meta environment does not exist an environment is created. Also the
 #' original data object is linked to the meta information by an 
 #' 
-#' @param x data object
+#' @param ts_name name of a time_series object
+#' @param ts_env name of an environment that stores time series objects
 #' @param key character key, defaults to NA_character_ which leads to using the 
 #' name of the original object
 #' @param meta_env character name of the meta environment, defaults to "meta"
@@ -57,26 +58,38 @@ key or set overwrite to TRUE.")
 #' @param restrict character description of restrictions to the data
 #' @param overwrite boolean defaults to FALSE
 #' @author Matthias Bannert 
-add_mi <- function(x,key=NA_character_, meta_env_name = "meta", srcname = NA_character_,
+add_mi <- function(ts_name,ts_env,
+                    key=NA_character_,
+                    meta_env_name = "meta", srcname = NA_character_,
                     legacy_key = NA_character_,cmnt = NA_character_,
                     restrict = NA_character_,overwrite = FALSE){
-  # add a key to an R Object
-  # in order to link the object to
-  # a meta object
+  # add ts_name as key if no 
+  # specific key is given
   if(is.na(key)){
-    key <- deparse(substitute(x))
+    key <- ts_name
   }
   
-  x <- add_key(x,key)
+  # set a key attribute to object of name ts_name
+  # that resides in environment ts_env
+  setattr(get(ts_env)[[ts_name]],
+          # name of the attribute
+          "mi_key",
+          # value to assign to the attribute
+          ts_name)
   
-  assign(key,x,envir=.GlobalEnv)
+  # output message
   cat("Key assigned to object. \n")
   
   # create meta object in separate environment
-  .add_mi(x,meta_env_name = meta_env_name, srcname = srcname,
-         legacy_key = legacy_key,cmnt = cmnt,
-         restrict = restrict,overwrite = overwrite)
+  # ?.add_mi to get information on 
+  # arguments of the funciton
+  .add_mi(get(ts_env)[[ts_name]],
+          meta_env_name = meta_env_name,
+          srcname = srcname,
+          legacy_key = legacy_key,cmnt = cmnt,
+          restrict = restrict,overwrite = overwrite)
   
+  # output message
   cat("Meta information added. \n")
   
 }
