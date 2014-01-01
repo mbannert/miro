@@ -1,2 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+experiments_with_old_definitions.R
+tests.R
+tests2.R
+tests3.R

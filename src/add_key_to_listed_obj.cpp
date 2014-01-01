@@ -17,7 +17,7 @@ RObject add_key_to_listed_obj(List x, CharacterVector y){
   for(int i = 0; i < n; ++i) {
     RObject el = out[i];
     val = y[i];
-    el.attr("testkey") = val; 
+    el.attr("mi_key") = val; 
   }
  
   return out;

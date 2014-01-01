@@ -1,2 +1,6 @@
-useDynLib(miro)
-exportPattern("^[[:alpha:]]+")
+export(add_tag)
+export(mi_local)
+export(mi_ts)
+export(result_set)
+export(tidy_meta_env)
+export(wrap)

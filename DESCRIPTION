@@ -1,6 +1,6 @@
 Package: miro
 Type: Package
-Title: What the package does (short line)
+Title: Meta Information for R Objects
 Version: 0.1
 Date: 2013-09-28
 Authors@R: person("Matthias 'Bunny'", "Bannert", role = c("aut",
@@ -11,9 +11,13 @@ Description: Description: miro is an R package that helps useRs to store meta
     package uses reference classes to store the actual meta information. The
     actual data is not part of the meta information. Thus meta information can
     easily be exported as a bundle and be shared without privacy concerns.
-License: What Licence is it under ?
+License: GPL
 Depends:
-    Rcpp (>= 0.10.4),methods,hash
+    Rcpp (>= 0.10.6),methods,hash
 LinkingTo: Rcpp
 Collate:
     'RcppExports.R'
+    'add_key.R'
+    'add_mi.R'
+    'mi_ts_class_defintion.R'
+    'utils.R'

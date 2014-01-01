@@ -155,13 +155,18 @@ of character representation of the keys you want to add.")
                               
                               df <- data.frame(mi_key = mi_keys,stringsAsFactors=F)
                               # add vintage keys if list is not empty
-                              if(length(vintage_keys) != 0 & all(unlist(vintage_keys) %in% 1:nrow(df))){
-                                df[unlist(vintage_keys),"vintage_key"] <- names(vintage_keys)
-                                keys <<- df
-                              } else {
-                                stop("result set cannot be generated. One of the vintage keys
+                              if(length(vintage_keys) != 0){
+                                if(all(unlist(vintage_keys) %in% 1:nrow(df))){
+                                  df[unlist(vintage_keys),"vintage_key"] <- names(vintage_keys)
+                                  keys <<- df  
+                                } else {
+                                  stop("result set cannot be generated. One of the vintage keys
                                      is out of bounds.")
-                              }
+                                }
+                                # go on if list of vintage keys is empty
+                              } else {
+                                keys <<- df
+                              } 
                             },
                             add_selection = function(rows){
                               if(!is.numeric(rows)){
