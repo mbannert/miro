@@ -57,6 +57,7 @@ key or set overwrite to TRUE.")
 #' @param cmnt character comment
 #' @param restrict character description of restrictions to the data
 #' @param overwrite boolean defaults to FALSE
+#' @export
 #' @author Matthias Bannert 
 add_mi <- function(ts_name,ts_env,
                     key=NA_character_,

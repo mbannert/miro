@@ -5,6 +5,7 @@
 #' 
 #' @param nm character string name of the environment to be 
 #' created
+#' @export
 #' @author person("Matthias 'Bunny'", "Bannert", role = c("aut","cre"),email="matthias.bannert@gmail.com")
 create_env <- function(nm){
   e <- new("mi_local")
