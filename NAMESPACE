@@ -1,4 +1,6 @@
+export(add_mi)
 export(add_tag)
+export(create_env)
 export(mi_local)
 export(mi_ts)
 export(result_set)
