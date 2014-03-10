@@ -16,7 +16,6 @@ Depends:
     Rcpp (>= 0.10.6),methods,hash
 LinkingTo: Rcpp
 Collate:
-    'RcppExports.R'
     'add_key.R'
     'add_mi.R'
     'mi_ts_class_defintion.R'

@@ -6,7 +6,7 @@
 #' @param nm character string name of the environment to be 
 #' created
 #' @export
-#' @author person("Matthias 'Bunny'", "Bannert", role = c("aut","cre"),email="matthias.bannert@gmail.com")
+#' @author Matthias Bannert
 create_env <- function(nm){
   e <- new("mi_local")
   assign(nm,e,envir = .GlobalEnv)
@@ -23,7 +23,7 @@ create_env <- function(nm){
 #' @param x object of class ts
 #' @rdname zooLikeDateConvert
 #' @name zooLikeDateconvert
-#' 
+#' @export
 #' @author Achim Zeileis, Gabor Grothendieck, Jeffrey A. Ryan,
 #' Felix Andrews
 .zoolike.Date.convert <- function (x, offset = 0, ...) 
